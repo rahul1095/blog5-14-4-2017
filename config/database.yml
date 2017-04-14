@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  pool: 5
+  username: root
+  password: root
+  timeout: 5000
+  database: blogs6_dev
+

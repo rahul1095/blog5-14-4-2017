@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog5</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+ <div class="container">
+  <body>
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+    <%=form_tag "/blogs" ,:method=>"GET" do %>
+
+      <%= text_field_tag :search, params[:search] , :placeholder => "Type here to search"%>
+      <%= text_field_tag :start_date, params[:start_date] , :placeholder => "Start date", :id=>"start-date"%>
+      <%= text_field_tag :end_date, params[:end_date] , :placeholder => "end_date" , :id=>"end-date"%>
+      <%= submit_tag "Search", :class=>"btn btn-success"%>
+      <%end%>
+     <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+  <% end %>
+    <%= yield %>
+  </body>
+</html>
+<script>
+  $( function() {
+    $("#start-date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $("#end-date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+  } );
+  </script>
+</div>
