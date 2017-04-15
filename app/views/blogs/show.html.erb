@@ -14,12 +14,14 @@
   <p>
 
   <strong>vedio:</strong>
-  <%= video_tag @blog.vedio.path, :size => "320x260", :controls => true %>
+  <%= video_tag @blog.vedio, :size => "320x260", :controls => true %>
   
   
  </p>
   <strong>document:</strong>
-  <%= image_tag @blog.document, :height=>"100", :width=>"100"%>
+<% if @blog.document.present? %>
+<a href="<%=@blog.document.url %>"><%=  @blog.document.file.original_filename %></a>
+  <% end %>
  </p>
 <% @blog.comments.each do |comment| %>
   <p>
