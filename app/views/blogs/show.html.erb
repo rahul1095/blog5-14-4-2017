@@ -7,10 +7,20 @@
    <strong>description:</strong>
   <%= @blog.description %>
    </p>
-  <p>
+   <p>
   <strong>image:</strong>
   <%= image_tag @blog.image, :height=>"100", :width=>"100" %>
   </p>
+  <p>
+
+  <strong>vedio:</strong>
+  <%= video_tag @blog.vedio.path, :size => "320x260", :controls => true %>
+  
+  
+ </p>
+  <strong>document:</strong>
+  <%= image_tag @blog.document, :height=>"100", :width=>"100"%>
+ </p>
 <% @blog.comments.each do |comment| %>
   <p>
     <strong>Commenter:</strong>

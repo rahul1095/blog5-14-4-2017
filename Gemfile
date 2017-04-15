@@ -57,4 +57,5 @@ gem 'devise'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'carrierwave-video'
 

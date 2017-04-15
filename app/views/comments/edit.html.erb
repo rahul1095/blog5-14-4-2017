@@ -1,8 +1,8 @@
-<h3>Edit Comment</h3>
+<h3>Edit tg67hy8nupl.;</h3>
 
 
-<%#= form_for([@article, @comment]) do |f| %>
-<%= form_for(:comment, url: "/blogs/#{@blog.id}/comments") do |f| %>
+<%= form_for([@blog, @comment] , :method =>"patch" ) do |f| %>
+<%#= form_for(:comment, url: "/blogs/#{@blog.id}/comments/#{@comment.id}/edit") do |f| %>
 
   <p>
     <%= f.label :commenter %><br>

@@ -16,6 +16,16 @@
 </p>
 
 <p>
+<%=f.label  :lebel%>
+<%=f.file_field :vedio%>
+</p>
+
+<p>
+<%=f.label  :lebel%>
+<%=f.file_field :document%>
+</p>
+
+<p>
 <%= f.select(:category_id, Category.all.collect {|u| [u.name, u.id]}, :prompt => 'Select Category') %>
 <%#=f.select(:category_id, Category.all.collect,{|u|,[u.name, u.id]},:prompt=>'select category')%>
 </p>

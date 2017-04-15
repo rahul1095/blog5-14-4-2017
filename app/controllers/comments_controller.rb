@@ -18,20 +18,18 @@ class CommentsController < ApplicationController
      @comment = Comment.find(params[:id])
     @comment.destroy
     #redirect_to article_path(@article)
-    redirect_to blog_path(@blog)
+    redirect_to @comment
 
   end
 
   def update
      @blog = Blog.find(params[:blog_id])
      @comment = Comment.find(params[:id])
-     if @comment.update(comment_params)
+     @comment.update(comment_params)
       flash[:notice] = "Comment Updated"
 
    redirect_to blog_path(@blog)
-     else
-      render 'edit'
-   end
+     
   end
   private
     def comment_params
