@@ -58,4 +58,7 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'carrierwave-video'
+gem 'mini_magick', '3.8.0'
+gem "nested_form"
+gem 'bootstrap_form'
 

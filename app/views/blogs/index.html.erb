@@ -1,8 +1,11 @@
 <div class="container">
 <p id="notice"><%= notice %></p>
+
 <% if params[:search].present? %>
 <h3> <%= @blogs.count%> Results found.</h3>
-<%end %>
+<%else%>
+<h3>No Result found</h3>
+<%end%>
 <h1>blogs</h1>
 
 <table>
@@ -10,8 +13,8 @@
     <tr>
       <th>Title</th>
       <th>Description</th>
-      <th>image</th>
       <th>video</th>
+      <th>image</th>
        <th>document</th>
       <th>Category</th>
       
@@ -20,17 +23,24 @@
   </thead>
 
   <tbody>
+    
     <% @blogs.each do |blog| %>
       <tr>
+      
         <td><%= blog.title %></td>
          <td><%= blog.description %></td>
-       
-        <td><%= image_tag blog.image, :height=>"300", :width=>"300" %></td>
-      
-         <td><%= video_tag blog.vedio,:size => "320x260", :controls => true %>
+         <td><% blog.images.each do |image|%>
+    <%=image_tag image.image, :height=>"250", :width=>"250" %>
+            <%end%></td>
+            
+         <td><%= video_tag blog.vedio,:size => "350x290", :controls => true %>
          </td>
-         
-          <td><%= image_tag blog.document, :height=>"300", :width=>"300" %></td>
+         <td>
+         <strong>document:</strong>
+    <% if blog.document.present? %>
+   <a href="<%=blog.document.url %>"><%=blog.document.file.original_filename %></a>
+   <% end %>
+   </td>
         <td>
         <%if blog.category_id.present? %>
             <%=Category.find(blog.category_id).name %>

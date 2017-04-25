@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
 	def create
     @blog = Blog.find(params[:blog_id])
     @comment = @blog.comments.create(comment_params)
-    redirect_to blog_path(@blog)
+    # redirect_to blog_path(@blog)
+    render 'blogs/create_comments'
   end
 
   def edit
@@ -14,13 +15,15 @@ class CommentsController < ApplicationController
  def destroy
     #@article = Article.find(params[:id])
     #@comment = @article.comments.find(params[:article_id])
-    @blog = Blog.find(params[:blog_id])
+    @blog= Blog.find(params[:blog_id])
      @comment = Comment.find(params[:id])
     @comment.destroy
-    #redirect_to article_path(@article)
-    redirect_to @comment
+    redirect_to blog_path(@blog)
+    #redirect_to @comment
+     flash[:notice] = "Comment deleted"
 
   end
+  
 
   def update
      @blog = Blog.find(params[:blog_id])

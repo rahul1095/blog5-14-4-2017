@@ -1,32 +1,183 @@
-<%=form_for @blog do |f|%>
+<%= nested_form_for @blog, :html=>{:class=>"form-horizontal"} do |f| %>
+<fieldset>
+
+ 
+      <!-- Form Name -->
+      <legend> Personal Information </legend>
+    
+      <!-- Text input-->
+      
+      <!-- <div class="form-group">
+        <label class="col-md-4 control-label">Title</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input  name="blog[title]" placeholder="Title" class="form-control"  type="text">
+          </div>
+        </div>
+      </div> -->
+
+       <div class="form-group">
+        <label class="col-md-4 control-label">Title</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <%=f.text_field :title, :name=>"title", :placeholder=>"Title", :class=>"form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">description</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <%=f.text_field :description, :name=>"description",:placeholder=>"description", :class=>"form-control" %>
+          </div>
+        </div>
+      </div>
+
+
 
 <p>
-<%=f.label :title%>
-<%=f.text_field :title%>
-</p>
+ <table id="images">
+  <%= f.fields_for :images do |image_form| %>
+    <tr class="fields">
+      <td><%= image_form.file_field :image %></td>
+     
+      <td><%= image_form.link_to_remove "Remove this image" , :class=>"btn btn-success" %></td>
+    </tr>
+  <% end %>
+</table>
+<p><%= f.link_to_add "Add a image", :images, "data-target" => "#images",:class=>"btn-primary"  %></p> 
+ </p>
 
-<p>
-<%=f.label  :description%>
-<%=f.text_field :description%>
-</p>
 
-<p>
-<%=f.label  :image%>
-<%=f.file_field :image%>
-</p>
 
-<%=f.label  :vedio%>
-<%=f.file_field :vedio%>
-</p>
 
-</p>
+<div class="form-group">
+        <label class="col-md-4 control-label">vedio</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"></span>
+          <%=f.file_field :vedio, :name=>"vedio",:class=>"form-control" %>
+          </div>
+        </div>
+      </div>
 
-<%=f.label  :document%>
-<%=f.file_field :document%>
-</p>
 
-<p>
-<%= f.select(:category_id, Category.all.collect {|u| [u.name, u.id]}, :prompt => 'Select Category') %>
+<div class="form-group">
+        <label class="col-md-4 control-label">document</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <%=f.file_field :document,:name=>"document",:placeholder=>"description",:class=>"form-control" %>
+          </div>
+        </div>
+      </div>
+
+<div class="form-group">
+        <label class="col-md-4 control-label">Category</label>
+        <div class="col-md-6  inputGroupContainer">
+          <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+<%= f.select(:category_id, Category.all.collect {|u| [u.name, u.id]},:prompt => 'Select Category') %>
+        </div>
+        </div>
+      </div>
+
 <%=f.submit%>
+      
+  </fieldset>
 <%end%>
+
 <%= link_to 'Back', blogs_path %>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+ 
+   $(document).ready(function() {
+    $('#new_blog').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            title: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: 'Please supply your title name'
+                    }
+                }
+            },
+              description: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Please supply your description name'
+                    }
+                }
+            },
+
+            "blog[category_id]": {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select your category'
+                    }
+                }
+            },
+
+            vedio: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select your vedio'
+                    }
+                }
+            },
+           
+           
+            document: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select your state'
+                    }
+                }
+            },
+           
+            
+            }
+        })
+    
+  
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#new_blog').data('bootstrapValidator').resetForm();
+ 
+            // Prevent form submission
+            e.preventDefault();
+ 
+            // Get the form instance
+            var $form = $(e.target);
+ 
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+ 
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+ 
+</script>
+
+ 
